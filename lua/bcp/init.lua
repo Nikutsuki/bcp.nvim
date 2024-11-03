@@ -24,10 +24,9 @@ M.get_client = function()
 end
 
 M.setup = function(opts)
-	local startEvent = { "LspAttach" }
-
 	local blink_cmp_config = require("blink.cmp.config")
 	blink_cmp_config.kind_icons["Copilot"] = ""
+	M.get_client()
 end
 
 return M
