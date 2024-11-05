@@ -35,8 +35,9 @@ function copilot_source:get_completions(ctx, callback)
 		end
 		for _, completion in ipairs(data) do
 			completion = require("bcp.format").format_item(completion)
+			--- @type blink.cmp.CompletionItem
 			local item = {
-				kind = require("blink.cmp.types").CompletionItemKind.Copilot,
+				kind = require("blink.cmp.types").CompletionItemKind.Lsp,
 				label = completion.displayText,
 				insertTextFormat = vim.lsp.protocol.InsertTextFormat.PlainText,
 				insertText = completion.text,
@@ -44,6 +45,12 @@ function copilot_source:get_completions(ctx, callback)
 				textEdit = completion.textEdit,
 				filterText = completion.filterText,
 				cursor_column = completion.cursor_column,
+				source_name = "copilot",
+				documentation = completion.text,
+				blink_render = {
+					render_icon = "",
+					render_name = "Copilot",
+				},
 			}
 			table.insert(items, item)
 		end
